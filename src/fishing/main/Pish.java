@@ -3,6 +3,7 @@ package fishing.main;
 import fishing.util.Utill;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.FishHook;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerFishEvent;
@@ -12,6 +13,7 @@ import org.bukkit.inventory.ItemStack;
 public class Pish {
     PlayerFishEvent event;
     Player player;
+    FishHook hook;
 
     Pish(PlayerFishEvent e) {
         this.event = e;
@@ -49,30 +51,31 @@ public class Pish {
     }
     //Event.isCancelled(); 해당 이벤트가 최소됐으면 true 리턴 아니면 false
     private void onPishEvent() {
-        FishHook hook = this.event.getHook();
-        hook.remove();
-        this.event.setCancelled(true);
-        randomFishingEvent(Utill.randomValue());
+        this.hook = this.event.getHook();
+        this.hook.remove();
+
+        if(Utill.randomBoolean(10)){
+            sendDiamond();
+            this.event.setCancelled(true);
+        } else {
+            if(Utill.randomBoolean(80)){
+                spawnMonster();
+                this.event.setCancelled(true);
+            } else {
+                sendMessageByPlayer("기본이벤트");
+
+            }
+        }
+    }
+
+    private void spawnMonster() {
+        this.hook.getLocation().getWorld().spawnEntity(this.hook.getLocation(), EntityType.FIREBALL);
     }
 
     private void sendMessageByPlayer(String msg) {
         this.player.sendMessage(msg);
     }
-    private void randomFishingEvent(int random) {
 
-        sendDiamond();
-        /*if(random >= 0 && random <= 10) {
-            sendMessageByPlayer("다이아를 낚았다");
-            sendDiamond();
-        } else if (random >= 11 && random <= 20) {
-            sendMessageByPlayer("무언가 색다른 이벤트");
-        } else if (random >= 21 && random <= 40) {
-            sendMessageByPlayer("몬스터가 소환 되는 이벤트");
-        } else {
-            sendMessageByPlayer("원래 물고기 이벤트");
-        }*/
-
-    }
     private void sendDiamond() {
         Inventory inven = this.player.getPlayer().getInventory();
         inven.setItem(1, new ItemStack(Material.DIAMOND));
