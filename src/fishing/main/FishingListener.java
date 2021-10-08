@@ -4,8 +4,12 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerFishEvent;
 public class FishingListener implements Listener {
+
+    Pish pish;
+
     @EventHandler
     public void fishingEvent(PlayerFishEvent event) {
-        event.getPlayer().sendMessage("너는낚시를 했다");
+        this.pish = new Pish(event.getPlayer());
+        this.pish.setFishingState(event.getState());
     }
 }
