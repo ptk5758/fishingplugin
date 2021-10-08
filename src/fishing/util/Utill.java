@@ -1,7 +1,12 @@
 package fishing.util;
 
+import java.util.Random;
+
 public class Utill {
-    public static boolean randomBoolean() {
-        return true;
+    public static int randomValue() {
+        int result;
+        Random random = new Random();
+        result = random.nextInt(100);
+        return result;
     }
 }
