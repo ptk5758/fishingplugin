@@ -122,7 +122,7 @@ public class Pish {
     private void sendItem() {
         ItemStack item = new ItemStack(materials.get(new Random().nextInt(materials.size())));
         Inventory inven = this.player.getPlayer().getInventory();
-        inven.setItem(2, item);
+        inven.addItem(item);
     }
 
     private void setRandomMaterials() {
