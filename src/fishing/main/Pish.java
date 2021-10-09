@@ -23,7 +23,7 @@ public class Pish {
     Pish(PlayerFishEvent e) {
         this.event = e;
         this.player = e.getPlayer();
-
+        setRandomMaterials();
     }
 
     public void setFishingState(PlayerFishEvent.State state) {
@@ -94,7 +94,7 @@ public class Pish {
             result = "EVENT";
         }
 
-        if(Utill.randomBoolean(30)) {
+        if(Utill.randomBoolean(80)) {
             result = "ITEM";
         }
 
@@ -120,7 +120,7 @@ public class Pish {
     }
 
     private void sendItem() {
-        ItemStack item = new ItemStack(materials.get(new Random().nextInt(53)));
+        ItemStack item = new ItemStack(materials.get(new Random().nextInt(materials.size())));
         Inventory inven = this.player.getPlayer().getInventory();
         inven.setItem(2, item);
     }
@@ -129,13 +129,6 @@ public class Pish {
         this.materials.add(Material.APPLE);
         this.materials.add(Material.GRAVEL);
         this.materials.add(Material.SOUL_SAND);
-        this.materials.add(Material.GRAY_GLAZED_TERRACOTTA);
-        this.materials.add(Material.GREEN_GLAZED_TERRACOTTA);
-        this.materials.add(Material.BLACK_GLAZED_TERRACOTTA);
-        this.materials.add(Material.BROWN_GLAZED_TERRACOTTA);
-        this.materials.add(Material.BLUE_GLAZED_TERRACOTTA);
-        this.materials.add(Material.LIGHT_BLUE_GLAZED_TERRACOTTA);
-        this.materials.add(Material.LIGHT_GRAY_GLAZED_TERRACOTTA);
         this.materials.add(Material.ORANGE_GLAZED_TERRACOTTA);
         this.materials.add(Material.PINK_GLAZED_TERRACOTTA);
         this.materials.add(Material.PUMPKIN_SEEDS);
